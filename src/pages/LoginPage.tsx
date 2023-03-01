@@ -1,11 +1,50 @@
-import React from "react";
+import React, { useState } from "react";
+import { useSignIn } from "react-auth-kit";
+import { useNavigate } from "react-router-dom";
+
 function LoginPage() {
+  const signIn = useSignIn();
+
+  const [data, setData] = useState({
+    email: "",
+    password: "",
+  });
+  const navigate = useNavigate();
+  const submitLogin = () => {
+    if (
+      signIn({
+        token: "Im Token",
+        expiresIn: 1000,
+        tokenType: "Bearer",
+        authState: data,
+      })
+    ) {
+      // Redirect or do-something
+      navigate("/");
+    }
+  };
+
   return (
     <div style={Container}>
       <h2>Login</h2>
-      <input style={inputField} type="text" placeholder="Enter Your Email" />
-      <input style={inputField} type="text" placeholder="Enter Your Password" />
-      <input style={inputField} type="submit" value="Login" />
+      <input
+        style={inputField}
+        onChange={(e) => setData((d) => ({ ...d, email: e.target.value }))}
+        type="text"
+        placeholder="Enter Your Email"
+      />
+      <input
+        style={inputField}
+        onChange={(e) => setData((d) => ({ ...d, password: e.target.value }))}
+        type="text"
+        placeholder="Enter Your Password"
+      />
+      <input
+        style={inputField}
+        onClick={submitLogin}
+        type="submit"
+        value="Login"
+      />
     </div>
   );
 }

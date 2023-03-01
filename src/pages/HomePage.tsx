@@ -2,7 +2,7 @@ import React from "react";
 function HomePage() {
   return (
     <div>
-      <h2 style={title}>You are Authenticate Now </h2>
+      <h2 style={title}>You are Authenticated Now </h2>
     </div>
   );
 }
