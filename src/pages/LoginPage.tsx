@@ -12,7 +12,7 @@ function LoginPage() {
     } else {
       navigate("/login");
     }
-  }, [auth]);
+  }, []);
 
   const [data, setData] = useState({
     email: "",
