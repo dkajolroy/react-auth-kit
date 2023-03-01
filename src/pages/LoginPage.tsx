@@ -1,15 +1,23 @@
-import React, { useState } from "react";
-import { useSignIn } from "react-auth-kit";
+import React, { useEffect, useState } from "react";
+import { useAuthUser, useSignIn } from "react-auth-kit";
 import { useNavigate } from "react-router-dom";
 
 function LoginPage() {
   const signIn = useSignIn();
+  const auth = useAuthUser();
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (auth()) {
+      navigate("/");
+    } else {
+      navigate("/login");
+    }
+  }, [auth]);
 
   const [data, setData] = useState({
     email: "",
     password: "",
   });
-  const navigate = useNavigate();
   const submitLogin = () => {
     if (
       signIn({
